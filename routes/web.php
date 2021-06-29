@@ -20,3 +20,4 @@ $router->get('/', function () use ($router) {
 // $router->post('/registrasi',['user' => 'RegistrasiController@registrasi']);
 $router->post('/registrasi','RegistrasiController@registrasi');
 $router->post('/login','LoginController@login');
+$router->post('/booking','BookingController@create');

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Produk;
+use App\Models\Booking;
 use Exception;
 
-class ProdukController extends Controller{
+class BookingController extends Controller{
 
     //Fungsi untuk memasukan data ke tabel
     public function create(){
@@ -16,20 +16,23 @@ class ProdukController extends Controller{
         $harga = request()->post('harga');
         $data = [
             'kode_produk' => $kode,
-            'nama_produk' => $nama,
+            'tgl_jadwal' => $nama,
             'harga' => $harga,
         ];
         */
 
         // Cara mengirim data, cara ke 2
         $data = [
-            'kode_produk' => request()->post('kode_produk'),
-            'nama_produk' => request()->post('nama_produk'),
-            'harga' => request()->post('harga'),
+            'nama' => request()->post('nama'),
+            'alamat' => request()->post('alamat'),
+            'id_jam' => request()->post('id_jam'),
+            'tgl_jadwal' => request()->post('tgl_jadwal'),
+            'id_lapang' => request()->post('id_lapang'),
+            'notelp' => request()->post('notelp'),
         ];
         
         try{
-            $hasil = Produk::create($data); 
+            $hasil = Booking::create($data); 
 
             return $this -> responseHasil(200,true,$hasil);
 
@@ -46,23 +49,27 @@ class ProdukController extends Controller{
     public function read(){
         //$data = Produk::all(); kode untuk me load semua data pada tabel
         //untuk membatasi jumlah data yang diambil
-        $data = Produk::paginate(20);
+        $data = Booking::paginate(20);
         return $this-> responseHasil(200,true,$data);
     }
 
     //untuk mengubah data dari tabel
     public function update($id){
         $data = [
-            //kode_produk,nama_produ & harga di depan haru sama dengan di Postman
+            //kode_produk,nama_produ & notelp di depan haru sama dengan di Postman
             //sedangkan yang dibelakang hrus sama dengan tabel database
+            'nama' => request('nama'),
             'kode_produk' => request('kode_produk'),
-            'nama_produk' => request('nama_produk'),
-            'harga' => request('harga')
+            'alamat' => request('alamat'),
+            'id_jam' => request('id_jam'),
+            'tgl_jadwal' => request('tgl_jadwal'),
+            'id_lapangan' => request('id_lapangan'),
+            'notelp' => request('notelp')
         ];
         
         try{
             //variable produk namanya bebas
-            $produk = Produk::find($id); 
+            $produk = Booking::find($id); 
             
             //cek jika produk ditemukan, jika ditemukan skip
             if(empty($produk)){
@@ -98,7 +105,7 @@ class ProdukController extends Controller{
     //Fungsi untuk menampilkan hasil
     public function show($id){
         //variabel a digunakan untuk menampilkan hasil
-        $a = Produk::find($id);
+        $a = Booking::find($id);
         return $this->responseHasil(200,true,$a);
         
     }
@@ -106,7 +113,7 @@ class ProdukController extends Controller{
     //fungsi untuk menghapus
     public function delete($id){
         //variabel b digunakan untuk mencari data
-        $b = Produk::find($id);
+        $b = Booking::find($id);
 
         //jika data ada skip
         if(empty($b)){
