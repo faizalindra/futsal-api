@@ -9,19 +9,6 @@ class BookingController extends Controller{
 
     //Fungsi untuk memasukan data ke tabel
     public function create(){
-        // cara mengirim data, cara ke 1
-        /*
-        $kode = request()->post('kode_produk');
-        $nama = request()->post('nama_produk');
-        $harga = request()->post('harga');
-        $data = [
-            'kode_produk' => $kode,
-            'tgl_jadwal' => $nama,
-            'harga' => $harga,
-        ];
-        */
-
-        // Cara mengirim data, cara ke 2
         $data = [
             'nama' => request()->post('nama'),
             'alamat' => request()->post('alamat'),
@@ -45,48 +32,48 @@ class BookingController extends Controller{
     }
     
     //untuk membaca data dari tabel
-    
     public function read(){
         //$data = Produk::all(); kode untuk me load semua data pada tabel
         //untuk membatasi jumlah data yang diambil
-        $data = Booking::paginate(20);
+        
+        $data = Booking::all();
         return $this-> responseHasil(200,true,$data);
     }
 
     //untuk mengubah data dari tabel
-    public function update($id){
-        $data = [
-            //kode_produk,nama_produ & notelp di depan haru sama dengan di Postman
-            //sedangkan yang dibelakang hrus sama dengan tabel database
-            'nama' => request('nama'),
-            'kode_produk' => request('kode_produk'),
-            'alamat' => request('alamat'),
-            'id_jam' => request('id_jam'),
-            'tgl_jadwal' => request('tgl_jadwal'),
-            'id_lapangan' => request('id_lapangan'),
-            'notelp' => request('notelp')
-        ];
+    // public function update($id){
+    //     $data = [
+    //         //kode_produk,nama_produ & notelp di depan haru sama dengan di Postman
+    //         //sedangkan yang dibelakang hrus sama dengan tabel database
+    //         'nama' => request('nama'),
+    //         'kode_produk' => request('kode_produk'),
+    //         'alamat' => request('alamat'),
+    //         'id_jam' => request('id_jam'),
+    //         'tgl_jadwal' => request('tgl_jadwal'),
+    //         'id_lapangan' => request('id_lapangan'),
+    //         'notelp' => request('notelp')
+    //     ];
         
-        try{
-            //variable produk namanya bebas
-            $produk = Booking::find($id); 
+    //     try{
+    //         //variable produk namanya bebas
+    //         $produk = Booking::find($id); 
             
-            //cek jika produk ditemukan, jika ditemukan skip
-            if(empty($produk)){
-                return $this->responseHasil(404, false, 'Data Tidak Ditemukan');
-            }
+    //         //cek jika produk ditemukan, jika ditemukan skip
+    //         if(empty($produk)){
+    //             return $this->responseHasil(404, false, 'Data Tidak Ditemukan');
+    //         }
             
-            //perintah untuk merubah data
-            $hasil = $produk->update($data);
+    //         //perintah untuk merubah data
+    //         $hasil = $produk->update($data);
 
-            return $this -> responseHasil(200,true,$hasil);
+    //         return $this -> responseHasil(200,true,$hasil);
 
-        }catch(Exception $e){
-            return $this->responseHasil(500,false, [
-                'massage' => $e->getMessage(),
-                'data' => $data
-            ]);
-        }
+    //     }catch(Exception $e){
+    //         return $this->responseHasil(500,false, [
+    //             'massage' => $e->getMessage(),
+    //             'data' => $data
+    //         ]);
+    //     }
 
         //cara sederhana, jika error sulit di didiagnosis
         /*
@@ -99,7 +86,7 @@ class BookingController extends Controller{
 
         return $this->responseHasil(200,true,$r);
         */
-    }
+    // }
 
 
     //Fungsi untuk menampilkan hasil
@@ -111,21 +98,21 @@ class BookingController extends Controller{
     }
 
     //fungsi untuk menghapus
-    public function delete($id){
-        //variabel b digunakan untuk mencari data
-        $b = Booking::find($id);
+    // public function delete($id){
+    //     //variabel b digunakan untuk mencari data
+    //     $b = Booking::find($id);
 
-        //jika data ada skip
-        if(empty($b)){
-            return $this->responseHasil(404, false, 'Data Tidak Ditemukan');
-        }
+    //     //jika data ada skip
+    //     if(empty($b)){
+    //         return $this->responseHasil(404, false, 'Data Tidak Ditemukan');
+    //     }
 
-        //variabel h digunakan untuk menghapus hasil
-        $h = $b->delete();
+    //     //variabel h digunakan untuk menghapus hasil
+    //     $h = $b->delete();
 
-        return $this->responseHasil(200,true,$h);
+    //     return $this->responseHasil(200,true,$h);
         
-    }
+    // }
 
 
 
