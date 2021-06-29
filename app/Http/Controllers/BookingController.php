@@ -11,6 +11,7 @@ class BookingController extends Controller{
     public function create(){
         $data = [
             'nama' => request()->post('nama'),
+            'user_id' => request()->post('user_id'),
             'alamat' => request()->post('alamat'),
             'id_jam' => request()->post('id_jam'),
             'tgl_jadwal' => request()->post('tgl_jadwal'),
@@ -81,7 +82,7 @@ class BookingController extends Controller{
         $r = $h ->update([
             'kode_produk' => request('kode_produk'),
             'nama_produk' => request('nama_produk'),
-            'harga' => request('harga')
+            'harga' => request('harga')S
         ]);
 
         return $this->responseHasil(200,true,$r);

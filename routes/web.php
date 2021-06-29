@@ -22,4 +22,6 @@ $router->post('/registrasi','RegistrasiController@registrasi');
 $router->post('/login','LoginController@login');
 $router->post('/booking','BookingController@create');
 $router->get('/booking','BookingController@read');
+$router->get('/booking/{id}','BookingController@show');
+// $router->get('/produk/{id}','ProdukController@show');
 
